@@ -1,0 +1,57 @@
+{
+  "resource": "/",
+  "path": "/",
+  "httpMethod": "PUT",
+  "headers": {
+    "Accept": "*/*",
+    "Content-Type": "application/xml",
+    "Host": "api.example.com",
+    "User-Agent": "Custom User Agent String",
+    "X-Amzn-Trace-Id": "Root=1-5f1c7013-b2c5958c6a5a45c6a2b97403",
+    "X-Forwarded-For": "127.0.0.1",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": ["*/*"],
+    "Content-Type": ["application/xml"],
+    "Host": ["api.example.com"],
+    "User-Agent": ["Custom User Agent String"],
+    "X-Amzn-Trace-Id": ["Root=1-5f1c7013-b2c5958c6a5a45c6a2b97403"],
+    "X-Forwarded-For": ["127.0.0.1"],
+    "X-Forwarded-Port": ["443"],
+    "X-Forwarded-Proto": ["https"]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "accountId": "123456789012",
+    "resourceId": "abc123",
+    "stage": "prod",
+    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
+    "requestTime": "15/Mar/2024:10:30:00 +0000",
+    "requestTimeEpoch": 1710497400000,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": null,
+      "sourceIp": "127.0.0.1",
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Custom User Agent String",
+      "user": null
+    },
+    "path": "/",
+    "resourcePath": "/",
+    "httpMethod": "PUT",
+    "apiId": "1234567890",
+    "protocol": "HTTP/1.1"
+  },
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<order>\n    <id>550e8400-e29b-41d4-a716-446655440000</id>\n    <customer_id>b5c2d3f4-a29b-41d4-a716-446655441111</customer_id>\n    <customer_email>jane.smith@example.com</customer_email>\n    <customer_name>Jane Smith</customer_name>\n    <billing_address>\n        <street>123 Billing Street</street>\n        <city>San Francisco</city>\n        <state>CA</state>\n        <postal_code>94105</postal_code>\n        <country>US</country>\n    </billing_address>\n    <shipping_address>\n        <street>456 Shipping Ave</street>\n        <city>San Francisco</city>\n        <state>CA</state>\n        <postal_code>94105-1234</postal_code>\n        <country>US</country>\n    </shipping_address>\n    <items>\n        <item>\n            <product_id>123e4567-e89b-12d3-a456-426614174000</product_id>\n            <product_name>Premium Coffee Maker</product_name>\n            <quantity>1</quantity>\n            <unit_price>199.99</unit_price>\n            <subtotal>199.99</subtotal>\n        </item>\n        <item>\n            <product_id>987fcdeb-51k3-12d3-b456-426614174001</product_id>\n            <product_name>Coffee Beans (1kg)</product_name>\n            <quantity>2</quantity>\n            <unit_price>29.99</unit_price>\n            <subtotal>59.98</subtotal>\n        </item>\n    </items>\n    <total_amount>259.97</total_amount>\n    <status>PAID</status>\n    <created_at>2024-03-15T10:30:00Z</created_at>\n    <updated_at>2024-03-15T10:35:00Z</updated_at>\n    <payment_method>credit_card</payment_method>\n    <payment_id>PAY-1234567890</payment_id>\n    <tracking_number>1Z999AA1234567890</tracking_number>\n    <notes>Please leave at front door</notes>\n</order>",
+  "isBase64Encoded": false
+}

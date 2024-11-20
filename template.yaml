@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  api-lambda-sqs-multiple-consumer
+
+  Powertools example
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 256
+    Runtime: python3.12
+    Tracing: Active
+  Api:
+    TracingEnabled: true
+
+Resources:
+  OrderInjestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.handler
+      CodeUri: app
+      Description: Funciton to process orders requests
+      Architectures:
+        - x86_64
+      Tracing: Active
+      Events:
+        RootPath:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: OrderService
+          POWERTOOLS_METRICS_NAMESPACE: OrderService
+          LOG_LEVEL: INFO
+          ORDERS_XML_QUEUE_URL: !Ref OrdersXMLQueue
+          ORDERS_JSON_QUEUE_URL: !Ref OrdersJsonQueue
+      Tags:
+        LambdaPowertools: python
+
+  OrderJsonConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: consumer_json.handler
+      CodeUri: app
+      Description: Function to process JSON orders
+      Architectures:
+        - x86_64
+      Tracing: Active
+      Events:
+        OrdersJsonQueue:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt OrdersJsonQueue.Arn
+            FilterCriteria:
+              Filters:
+                - Pattern: '{"messageAttributes": {"event_type": ["json_event"]}}'
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: OrderService
+          POWERTOOLS_METRICS_NAMESPACE: OrderService
+          LOG_LEVEL: INFO
+      Tags:
+        LambdaPowertools: python
+
+  OrderXmlConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: consumer_xml.handler
+      CodeUri: app
+      Description: Function to process XML orders
+      Architectures:
+        - x86_64
+      Tracing: Active
+      Events:
+        OrdersXMLQueue:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt OrdersXMLQueue.Arn
+            FilterCriteria:
+              Filters:
+                - Pattern: '{"messageAttributes": {"event_type": ["xml_event"]}}'
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: OrderService
+          POWERTOOLS_METRICS_NAMESPACE: OrderService
+          LOG_LEVEL: INFO
+      Tags:
+        LambdaPowertools: python
+
+  OrdersJsonQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: OrdersJsonQueue
+
+  OrdersXMLQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: OrdersXMLQueue
+
+  OrdersXMLParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /orders-server/xml
+      Type: String
+      Value: default-xml-value
+      Description: Configuration for XML order processing
+
+  OrdersJSONParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /orders-server/json
+      Type: String
+      Value: default-json-value
+      Description: Configuration for JSON order processing
+
+Outputs:
+  OrderApi:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

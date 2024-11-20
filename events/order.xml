@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+    <id>550e8400-e29b-41d4-a716-446655440000</id>
+    <customer_id>b5c2d3f4-a29b-41d4-a716-446655441111</customer_id>
+    <customer_email>jane.smith@example.com</customer_email>
+    <customer_name>Jane Smith</customer_name>
+    <billing_address>
+        <street>123 Billing Street</street>
+        <city>San Francisco</city>
+        <state>CA</state>
+        <postal_code>94105</postal_code>
+        <country>US</country>
+    </billing_address>
+    <shipping_address>
+        <street>456 Shipping Ave</street>
+        <city>San Francisco</city>
+        <state>CA</state>
+        <postal_code>94105-1234</postal_code>
+        <country>US</country>
+    </shipping_address>
+    <items>
+        <item>
+            <product_id>123e4567-e89b-12d3-a456-426614174000</product_id>
+            <product_name>Premium Coffee Maker</product_name>
+            <quantity>1</quantity>
+            <unit_price>199.99</unit_price>
+            <subtotal>199.99</subtotal>
+        </item>
+        <item>
+            <product_id>987fcdeb-51k3-12d3-b456-426614174001</product_id>
+            <product_name>Coffee Beans (1kg)</product_name>
+            <quantity>2</quantity>
+            <unit_price>29.99</unit_price>
+            <subtotal>59.98</subtotal>
+        </item>
+    </items>
+    <total_amount>259.97</total_amount>
+    <status>PAID</status>
+    <created_at>2024-03-15T10:30:00Z</created_at>
+    <updated_at>2024-03-15T10:35:00Z</updated_at>
+    <payment_method>credit_card</payment_method>
+    <payment_id>PAY-1234567890</payment_id>
+    <tracking_number>1Z999AA1234567890</tracking_number>
+    <notes>Please leave at front door</notes>
+</order>

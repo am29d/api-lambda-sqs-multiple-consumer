@@ -1,0 +1,4 @@
+aws-lambda-powertools[tracer]
+aws-lambda-powertools[validation]
+aws-lambda-powertools
+boto3

@@ -1,0 +1,44 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "customer_id": "b5c2d3f4-a29b-41d4-a716-446655441111",
+  "customer_email": "jane.smith@example.com",
+  "customer_name": "Jane Smith",
+  "billing_address": {
+    "street": "123 Billing Street",
+    "city": "San Francisco",
+    "state": "CA",
+    "postal_code": "94105",
+    "country": "US"
+  },
+  "shipping_address": {
+    "street": "456 Shipping Ave",
+    "city": "San Francisco",
+    "state": "CA",
+    "postal_code": "94105-1234",
+    "country": "US"
+  },
+  "items": [
+    {
+      "product_id": "123e4567-e89b-12d3-a456-426614174000",
+      "product_name": "Premium Coffee Maker",
+      "quantity": 1,
+      "unit_price": 199.99,
+      "subtotal": 199.99
+    },
+    {
+      "product_id": "987fcdeb-51k3-12d3-b456-426614174001",
+      "product_name": "Coffee Beans (1kg)",
+      "quantity": 2,
+      "unit_price": 29.99,
+      "subtotal": 59.98
+    }
+  ],
+  "total_amount": 259.97,
+  "status": "PAID",
+  "created_at": "2024-03-15T10:30:00Z",
+  "updated_at": "2024-03-15T10:35:00Z",
+  "payment_method": "credit_card",
+  "payment_id": "PAY-1234567890",
+  "tracking_number": "1Z999AA1234567890",
+  "notes": "Please leave at front door"
+}

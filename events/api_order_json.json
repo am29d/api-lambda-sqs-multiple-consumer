@@ -1,0 +1,57 @@
+{
+  "resource": "/",
+  "path": "/",
+  "httpMethod": "PUT",
+  "headers": {
+    "Accept": "*/*",
+    "Content-Type": "application/json",
+    "Host": "api.example.com",
+    "User-Agent": "Custom User Agent String",
+    "X-Amzn-Trace-Id": "Root=1-5f1c7013-b2c5958c6a5a45c6a2b97403",
+    "X-Forwarded-For": "127.0.0.1",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": ["*/*"],
+    "Content-Type": ["application/json"],
+    "Host": ["api.example.com"],
+    "User-Agent": ["Custom User Agent String"],
+    "X-Amzn-Trace-Id": ["Root=1-5f1c7013-b2c5958c6a5a45c6a2b97403"],
+    "X-Forwarded-For": ["127.0.0.1"],
+    "X-Forwarded-Port": ["443"],
+    "X-Forwarded-Proto": ["https"]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "accountId": "123456789012",
+    "resourceId": "abc123",
+    "stage": "prod",
+    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
+    "requestTime": "15/Mar/2024:10:30:00 +0000",
+    "requestTimeEpoch": 1710497400000,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": null,
+      "sourceIp": "127.0.0.1",
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Custom User Agent String",
+      "user": null
+    },
+    "path": "/",
+    "resourcePath": "/",
+    "httpMethod": "PUT",
+    "apiId": "1234567890",
+    "protocol": "HTTP/1.1"
+  },
+  "body": "{\"id\": \"550e8400-e29b-41d4-a716-446655440000\", \"customer_id\": \"b5c2d3f4-a29b-41d4-a716-446655441111\", \"customer_email\": \"jane.smith@example.com\", \"customer_name\": \"Jane Smith\", \"billing_address\": {\"street\": \"123 Billing Street\", \"city\": \"San Francisco\", \"state\": \"CA\", \"postal_code\": \"94105\", \"country\": \"US\"}, \"shipping_address\": {\"street\": \"456 Shipping Ave\", \"city\": \"San Francisco\", \"state\": \"CA\", \"postal_code\": \"94105-1234\", \"country\": \"US\"}, \"items\": [{\"product_id\": \"123e4567-e89b-12d3-a456-426614174000\", \"product_name\": \"Premium Coffee Maker\", \"quantity\": 1, \"unit_price\": 199.99, \"subtotal\": 199.99}, {\"product_id\": \"987fcdeb-51a3-12d3-b456-426614174001\", \"product_name\": \"Coffee Beans (1kg)\", \"quantity\": 2, \"unit_price\": 29.99, \"subtotal\": 59.98}], \"total_amount\": 259.97, \"status\": \"PAID\", \"created_at\": \"2024-03-15T10:30:00Z\", \"updated_at\": \"2024-03-15T10:35:00Z\", \"payment_method\": \"credit_card\", \"payment_id\": \"PAY-1234567890\", \"tracking_number\": \"1Z999AA1234567890\", \"notes\": \"Please leave at front door\"}",
+  "isBase64Encoded": false
+}
