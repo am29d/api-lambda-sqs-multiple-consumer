@@ -1,8 +1,20 @@
 # api-lambda-sqs-multiple-consumer
 
+This project demonstrates a serverless architecture for handling multi-format order processing using AWS services. It consists of:
 
+- An API Gateway endpoint that accepts both JSON and XML order payloads
+- A Lambda function that validates and routes orders to SQS based on their format
+- Two specialized Lambda consumers that process JSON and XML orders respectively
+- A DynamoDB table for storing processed orders
 
-Powertools is a developer toolkit to implement Serverless best practices and increase developer velocity.
+## Architecture
+
+1. API Gateway accepts POST requests with either `application/json` or `application/xml` content types
+2. The ingestion Lambda function validates the payload and sends it to an SQS queue
+3. Two separate Lambda functions consume from the queue:
+   - JSON consumer processes and stores JSON formatted orders
+   - XML consumer processes and stores XML formatted orders
+4. Both consumers store the processed orders in a DynamoDB table with a format indicator
 
 ## Powertools features
 
