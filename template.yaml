@@ -7,7 +7,7 @@ Description: >
 
 Globals:
   Function:
-    Timeout: 10
+    Timeout: 15
     MemorySize: 256
     Runtime: python3.12
     Tracing: Active
@@ -15,7 +15,7 @@ Globals:
     TracingEnabled: true
 
 Resources:
-  OrderInjestFunction:
+  OrderIngestionFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: app.handler
@@ -35,8 +35,10 @@ Resources:
           POWERTOOLS_SERVICE_NAME: OrderService
           POWERTOOLS_METRICS_NAMESPACE: OrderService
           LOG_LEVEL: INFO
-          ORDERS_XML_QUEUE_URL: !Ref OrdersXMLQueue
-          ORDERS_JSON_QUEUE_URL: !Ref OrdersJsonQueue
+          ORDERS_QUEUE_URL: !Ref OrdersQueue
+      Policies:
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt OrdersQueue.QueueName
       Tags:
         LambdaPowertools: python
 
@@ -50,18 +52,23 @@ Resources:
         - x86_64
       Tracing: Active
       Events:
-        OrdersJsonQueue:
+        OrderEvent:
           Type: SQS
           Properties:
-            Queue: !GetAtt OrdersJsonQueue.Arn
+            Queue: !GetAtt OrdersQueue.Arn
             FilterCriteria:
               Filters:
-                - Pattern: '{"messageAttributes": {"event_type": ["json_event"]}}'
+                - Pattern: '{"messageAttributes": {"eventType": {"stringValue": ["json_order"]}}}'
+
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: OrderService
           POWERTOOLS_METRICS_NAMESPACE: OrderService
           LOG_LEVEL: INFO
+          ORDERS_TABLE: !Ref OrdersTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable
       Tags:
         LambdaPowertools: python
 
@@ -75,48 +82,50 @@ Resources:
         - x86_64
       Tracing: Active
       Events:
-        OrdersXMLQueue:
+        OrderEvent:
           Type: SQS
           Properties:
-            Queue: !GetAtt OrdersXMLQueue.Arn
+            Queue: !GetAtt OrdersQueue.Arn
             FilterCriteria:
               Filters:
-                - Pattern: '{"messageAttributes": {"event_type": ["xml_event"]}}'
+                - Pattern: '{"messageAttributes": {"eventType": {"stringValue": ["xml_order"]}}}'
+
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: OrderService
           POWERTOOLS_METRICS_NAMESPACE: OrderService
           LOG_LEVEL: INFO
+          ORDERS_TABLE: !Ref OrdersTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable
       Tags:
         LambdaPowertools: python
 
-  OrdersJsonQueue:
+  OrdersQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: OrdersJsonQueue
+      QueueName: OrderQeue
 
-  OrdersXMLQueue:
-    Type: AWS::SQS::Queue
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
     Properties:
-      QueueName: OrdersXMLQueue
-
-  OrdersXMLParameter:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /orders-server/xml
-      Type: String
-      Value: default-xml-value
-      Description: Configuration for XML order processing
-
-  OrdersJSONParameter:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /orders-server/json
-      Type: String
-      Value: default-json-value
-      Description: Configuration for JSON order processing
+      TableName: Orders
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      Tags:
+        - Key: Service
+          Value: OrderService
 
 Outputs:
   OrderApi:
     Description: "API Gateway endpoint URL"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  OrdersTableName:
+    Description: "DynamoDB Orders table name"
+    Value: !Ref OrdersTable

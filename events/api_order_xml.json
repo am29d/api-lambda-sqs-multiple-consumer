@@ -1,7 +1,7 @@
 {
   "resource": "/",
   "path": "/",
-  "httpMethod": "PUT",
+  "httpMethod": "POST",
   "headers": {
     "Accept": "*/*",
     "Content-Type": "application/xml",

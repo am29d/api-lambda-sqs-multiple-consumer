@@ -1,4 +1,4 @@
-INPUT = {
+SCHEMA = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "title": "Order Schema",
@@ -55,7 +55,7 @@ INPUT = {
                 "properties": {
                     "product_id": {
                         "type": "string",
-                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
                     },
                     "product_name": {"type": "string", "minLength": 1},
                     "quantity": {"type": "integer", "minimum": 1},
